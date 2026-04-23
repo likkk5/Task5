@@ -20,11 +20,11 @@ public class CoverGenerator : ICoverGenerator
 
     private readonly string[] _availableFonts = new[]
     {
-        "Arial",
-        "Verdana",
-        "Tahoma",
-        "Segoe UI",
-        "Times New Roman"
+        "Liberation Sans",
+        "Liberation Serif",
+        "DejaVu Sans",
+        "DejaVu Serif",
+        "FreeSans"
     };
 
     private const double PROBABILITY_LOREM_PICSUM = 0.85;
@@ -173,24 +173,24 @@ public class CoverGenerator : ICoverGenerator
             {
                 string textToDraw = rng.NextBool() ? title : artist;
 
-                if (textToDraw.Length > 20)
+                if (textToDraw.Length > 15)
                 {
                     var words = textToDraw.Split(' ');
-                    if (words.Length > 0)
+                    if (words.Length >= 2)
                     {
-                        textToDraw = words[0];
-                        if (words.Length > 1 && textToDraw.Length < 15)
-                        {
-                            textToDraw += " " + words[1];
-                        }
+                        textToDraw = words[0] + " " + words[1];
                     }
-                    if (textToDraw.Length > 25) textToDraw = textToDraw.Substring(0, 22) + "...";
+                    if (textToDraw.Length > 15)
+                    {
+                        textToDraw = textToDraw.Substring(0, 12) + "...";
+                    }
                 }
 
                 try
                 {
                     string fontName = _availableFonts[rng.Next(_availableFonts.Length)];
-                    var font = SystemFonts.CreateFont(fontName, rng.Next(24, 48), FontStyle.Bold);
+
+                    var font = SystemFonts.CreateFont(fontName, 28, FontStyle.Bold);
 
                     var textColor = new Rgba32(
                         (byte)rng.Next(220, 255),
@@ -198,8 +198,13 @@ public class CoverGenerator : ICoverGenerator
                         (byte)rng.Next(220, 255)
                     );
 
-                    int x = rng.Next(20, 280);
-                    int y = rng.Next(40, 360);
+                    int x = 200 - (textToDraw.Length * 8) / 2; 
+                    int offsetY = new[] { -30, 0, 30 }[rng.Next(0, 3)];
+                    int y = 200 + offsetY;
+
+                    x = Math.Max(10, Math.Min(x, 400 - textToDraw.Length * 8 - 10));
+                    y = Math.Max(20, Math.Min(y, 370));
+
                     var textPosition = new Point(x, y);
 
                     ctx.DrawText(textToDraw, font, textColor, textPosition);
@@ -262,29 +267,26 @@ public class CoverGenerator : ICoverGenerator
             {
                 ctx.GaussianBlur(rng.Next(1, 3));
             }
-
             if (rng.NextBool(0.50))
             {
                 string textToDraw = rng.NextBool() ? title : artist;
 
-                if (textToDraw.Length > 25)
+                if (textToDraw.Length > 15)
                 {
                     var words = textToDraw.Split(' ');
-                    if (words.Length > 0)
+                    if (words.Length >= 2)
                     {
-                        textToDraw = words[0];
-                        if (words.Length > 1 && textToDraw.Length < 15)
-                        {
-                            textToDraw += " " + words[1];
-                        }
+                        textToDraw = words[0] + " " + words[1];
                     }
-                    if (textToDraw.Length > 25) textToDraw = textToDraw.Substring(0, 22) + "...";
+                    if (textToDraw.Length > 15)
+                    {
+                        textToDraw = textToDraw.Substring(0, 12) + "...";
+                    }
                 }
-
                 try
                 {
                     string fontName = _availableFonts[rng.Next(_availableFonts.Length)];
-                    var font = SystemFonts.CreateFont(fontName, rng.Next(20, 40), FontStyle.Bold);
+                    var font = SystemFonts.CreateFont(fontName, 26, FontStyle.Bold);
 
                     var textColor = new Rgba32(
                         (byte)rng.Next(200, 255),
@@ -292,25 +294,21 @@ public class CoverGenerator : ICoverGenerator
                         (byte)rng.Next(200, 255)
                     );
 
-                    var textPosition = new Point(rng.Next(20, 300), rng.Next(30, 360));
+                    int x = 200 - (textToDraw.Length * 7) / 2;
+                    int offsetY = new[] { -30, 0, 30 }[rng.Next(0, 3)];
+                    int y = 200 + offsetY;
+
+                    x = Math.Max(10, Math.Min(x, 400 - textToDraw.Length * 7 - 10));
+                    y = Math.Max(20, Math.Min(y, 370));
+
+                    var textPosition = new Point(x, y);
+
                     ctx.DrawText(textToDraw, font, textColor, textPosition);
                 }
                 catch (Exception ex)
                 {
                     _logger.LogWarning(ex, "Failed to draw text on template");
                 }
-            }
-
-            if (rng.NextBool(0.25))
-            {
-                var borderColor = new Rgba32(
-                    (byte)rng.Next(100, 255),
-                    (byte)rng.Next(100, 255),
-                    (byte)rng.Next(100, 255),
-                    (byte)rng.Next(150, 255)
-                );
-                var borderPath = new RectangularPolygon(8, 8, 384, 384);
-                ctx.Draw(borderColor, rng.Next(2, 6), borderPath);
             }
         });
 
