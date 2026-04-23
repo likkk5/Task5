@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Store Showcase</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <label id="langLabel">Language</label>
+            <select id="langSelect">
+                <option value="en-US">English</option>
+                <option value="ru-RU">Russian</option>
+            </select>
+        </div>
+        <div class="toolbar-group">
+            <label id="seedLabel">Seed</label>
+            <input type="number" id="seedInput" value="12345" step="1">
+            <button id="randomSeedBtn">Random Seed</button>
+        </div>
+        <div class="toolbar-group">
+            <label id="likesLabel">Avg Likes (0–10)</label>
+            <input type="number" id="likesInput" value="5.0" step="0.1" min="0" max="10">
+        </div>
+        <div class="view-toggle">
+            <button id="tableViewBtn" class="active">Table View</button>
+            <button id="galleryViewBtn">Gallery View</button>
+        </div>
+        <button id="exportBtn">Export ZIP</button>
+    </div>
+
+    <div id="tableContainer"></div>
+    <div id="galleryContainer" class="gallery hidden"></div>
+    <div id="paginationControls" class="pagination"></div>
+    <div id="galleryLoader" class="loader hidden">Loading more songs...</div>
+    <div id="gallerySentinel"></div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
