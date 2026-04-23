@@ -121,7 +121,6 @@ public class DataGenerator
         string connector = culture == "ru-RU" ? "из" : "of";
         patterns.Add($"{faker.PickRandom(lang.SongNoun)} {connector} {faker.PickRandom(lang.SongNoun)}");
 
-        patterns.Add($"{faker.PickRandom(lang.SongAdjective)} {faker.PickRandom(lang.SongNoun)} {faker.Random.Int(1, 99)}");
 
         if (isEnglish)
         {
