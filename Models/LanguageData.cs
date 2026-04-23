@@ -11,6 +11,9 @@ public class LanguageData
     [JsonPropertyName("lastName")]
     public string[] LastName { get; set; } = Array.Empty<string>();
 
+    [JsonPropertyName("lastNameFemale")]
+    public string[] LastNameFemale { get; set; } = Array.Empty<string>();
+
     [JsonPropertyName("bandPrefix")]
     public string[] BandPrefix { get; set; } = Array.Empty<string>();
 
@@ -20,8 +23,17 @@ public class LanguageData
     [JsonPropertyName("songAdjective")]
     public string[] SongAdjective { get; set; } = Array.Empty<string>();
 
+    [JsonPropertyName("songAdjectiveFemale")]
+    public string[] SongAdjectiveFemale { get; set; } = Array.Empty<string>();
+
+    [JsonPropertyName("songAdjectiveNeuter")]
+    public string[] SongAdjectiveNeuter { get; set; } = Array.Empty<string>();
+
     [JsonPropertyName("songNoun")]
     public string[] SongNoun { get; set; } = Array.Empty<string>();
+
+    [JsonPropertyName("songNounGenitive")]
+    public string[] SongNounGenitive { get; set; } = Array.Empty<string>();
 
     [JsonPropertyName("albumTemplate")]
     public string[] AlbumTemplate { get; set; } = Array.Empty<string>();

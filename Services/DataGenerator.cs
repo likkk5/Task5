@@ -100,10 +100,20 @@ public class DataGenerator
 
         if (faker.Random.Bool())
         {
-            string first = faker.Random.Bool()
-                ? faker.PickRandom(lang.FirstNameMale)
-                : faker.PickRandom(lang.FirstNameFemale);
-            string last = faker.PickRandom(lang.LastName);
+            bool isFemale = faker.Random.Bool();
+            string first = isFemale
+                ? faker.PickRandom(lang.FirstNameFemale)
+                : faker.PickRandom(lang.FirstNameMale);
+
+            string last;
+            if (!isEnglish && isFemale && lang.LastNameFemale.Length > 0)
+            {
+                last = faker.PickRandom(lang.LastNameFemale);
+            }
+            else
+            {
+                last = faker.PickRandom(lang.LastName);
+            }
             return $"{first} {last}";
         }
         else
@@ -116,14 +126,26 @@ public class DataGenerator
     {
         List<string> patterns = new List<string>();
 
-        patterns.Add($"{faker.PickRandom(lang.SongAdjective)} {faker.PickRandom(lang.SongNoun)}");
-
-        string connector = culture == "ru-RU" ? "из" : "of";
-        patterns.Add($"{faker.PickRandom(lang.SongNoun)} {connector} {faker.PickRandom(lang.SongNoun)}");
-
-
-        if (isEnglish)
+        if (culture == "ru-RU" && lang.SongAdjectiveFemale.Length > 0)
         {
+            // Русские паттерны с учетом рода
+            string noun = faker.PickRandom(lang.SongNoun);
+            string adj = GetRussianAdjectiveByGender(faker, lang, noun);
+            patterns.Add($"{adj} {noun}");
+
+            string noun1 = faker.PickRandom(lang.SongNoun);
+            string noun2 = faker.PickRandom(lang.SongNounGenitive);
+            patterns.Add($"{noun1} {noun2}");
+
+            string singleWord = faker.PickRandom(lang.SongNoun);
+            patterns.Add(singleWord);
+        }
+        else
+        {
+            // Английские паттерны (без изменений)
+            patterns.Add($"{faker.PickRandom(lang.SongAdjective)} {faker.PickRandom(lang.SongNoun)}");
+            patterns.Add($"{faker.PickRandom(lang.SongNoun)} of {faker.PickRandom(lang.SongNoun)}");
+
             string singleWord = faker.Random.Word();
             if (singleWord.Length > 0)
             {
@@ -149,6 +171,15 @@ public class DataGenerator
         return faker.PickRandom(patterns);
     }
 
+    private string GetRussianAdjectiveByGender(Faker faker, LanguageData lang, string noun)
+    {
+        if (noun.EndsWith("а") || noun.EndsWith("я"))
+            return faker.PickRandom(lang.SongAdjectiveFemale);
+        else if (noun.EndsWith("о") || noun.EndsWith("е"))
+            return faker.PickRandom(lang.SongAdjectiveNeuter);
+        else
+            return faker.PickRandom(lang.SongAdjective);
+    }
     private string GenerateAlbum(Faker faker, LanguageData lang, string title, string artist)
     {
         if (faker.Random.Double() < 0.3)

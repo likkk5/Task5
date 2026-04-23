@@ -2,11 +2,15 @@
     "firstNameMale": [ "James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles" ],
     "firstNameFemale": [ "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen" ],
     "lastName": [ "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez" ],
+    "lastNameFemale": [],
     "bandPrefix": [ "The", "Red", "Black", "Blue", "Green", "Atomic", "Digital", "Electric", "Cosmic", "Neon" ],
     "bandSuffix": [ "Kings", "Lions", "Wolves", "Eagles", "Riders", "Dreamers", "Machines", "Stars", "Phoenix", "Voyagers" ],
     "songAdjective": [ "Broken", "Dark", "Bright", "Silent", "Loud", "Wild", "Sweet", "Cold", "Deep", "Lost", "Empty", "Eternal", "Fading", "Burning", "Frozen" ],
+    "songAdjectiveFemale": [],
+    "songAdjectiveNeuter": [],
     "songNoun": [ "Dream", "Night", "Fire", "Rain", "Star", "Heart", "Road", "Shadow", "Light", "Moon", "Sun", "Wind", "Ocean", "Mountain", "River", "Forest", "Sky", "Cloud", "Storm", "Flame" ],
+    "songNounGenitive": [],
     "albumTemplate": [ "{0} {1}", "The {0} {1}", "{0} of {1}", "{0} & {1}", "{0} - {1}" ],
     "singleIndicator": "Single",
-    "genres": [ "Pop", "Rock", "Jazz", "Electronic", "Hip Hop", "Classical", "Reggae", "Blues", "Metal", "Folk" ]
+    "genres": [ "Pop", "Rock", "Jazz", "Electronic", "Hip Hop", "Classical", "Reggae", "Blues", "Metal", "Folk", "Country", "Funk", "Soul", "Punk", "Indie", "Ambient", "Techno", "Latin", "R&B", "House" ]
 }
