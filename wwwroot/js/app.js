@@ -378,7 +378,7 @@ langSelect.onchange = () => {
     onParamsChange();
 };
 
-seedInput.onchange = () => {
+seedInput.oninput = () => {
     currentSeed = parseInt(seedInput.value, 10) || 0;
     onParamsChange();
 };
